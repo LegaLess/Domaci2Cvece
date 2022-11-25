@@ -1,1 +1,1 @@
-![alt text](https://github.com/LegaLess/Domaci2/blob/[branch]/D1.jpg)
+![alt text](main/D1.jpg)
