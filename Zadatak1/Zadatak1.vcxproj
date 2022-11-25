@@ -140,10 +140,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Buket.h" />
+    <ClInclude Include="Cvecara.h" />
     <ClInclude Include="Cvet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Buket.cpp" />
+    <ClCompile Include="Cvecara.cpp" />
     <ClCompile Include="Cvet.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

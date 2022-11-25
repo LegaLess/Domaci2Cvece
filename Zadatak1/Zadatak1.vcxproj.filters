@@ -21,6 +21,9 @@
     <ClInclude Include="Buket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Cvecara.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cvet.cpp">
@@ -30,6 +33,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Buket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cvecara.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

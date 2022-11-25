@@ -18,7 +18,8 @@ Buket& Buket::dodaj(Cvet& c)
 	return *this;
 }
 
-int Buket::zarada() {
+int Buket::zarada() const 
+{
 	int s = 0;
 	Elem* tek = prvi;
 
@@ -30,7 +31,20 @@ int Buket::zarada() {
 	return s;
 }
 
-int Buket::prodCena() const
+int Buket::nabavna() const 
+{
+	int s = 0;
+	Elem* tek = prvi;
+
+	while (tek) {
+		s += tek->cvet->get_cenaN();
+		tek = tek->next;
+	}
+
+	return s;
+}
+
+int Buket::prodajna() const
 {
 	int s = 0;
 	Elem* tek = prvi;
@@ -42,3 +56,20 @@ int Buket::prodCena() const
 
 	return s;
 }
+
+float Buket::procenatZar() const
+{
+	float sP = 0;
+	float sN = 0;
+	Elem* tek = prvi;
+
+
+	while (tek) {
+		sP += tek->cvet->get_cenaP();
+		sN += tek->cvet->get_cenaN();
+		tek = tek->next;
+	}
+
+	return sN / sP;
+}
+

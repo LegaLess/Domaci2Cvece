@@ -9,7 +9,13 @@ public:
 
 	Buket& dodaj(Cvet&);
 
-	int zarada();
+	int zarada() const;
+
+	int nabavna() const;
+
+	int prodajna() const;
+
+	float procenatZar() const;
 
 	friend ostream& operator<<(ostream& it, const Buket& b) {
 		Elem* tek = b.prvi;
@@ -19,7 +25,7 @@ public:
 				it << tek->cvet->get_naziv() + ",";
 			}
 			else {
-				it << tek->cvet->get_naziv() + " " << b.prodCena() << "RSD";
+				it << tek->cvet->get_naziv() + " " << b.prodajna() << "RSD";
 			}
 			tek = tek->next;
 		}
@@ -27,7 +33,7 @@ public:
 	}
 
 	friend bool operator>(Buket& b1, Buket& b2) {
-		return b1.prodCena() > b2.prodCena();
+		return b1.prodajna() > b2.prodajna();
 	}
 	
 	~Buket() {
@@ -50,7 +56,5 @@ private:
 	};
 
 	Elem* prvi;
-
-	int prodCena() const;
 
 };

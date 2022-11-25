@@ -2,6 +2,7 @@
 #include <string>
 #include "Cvet.h"
 #include "Buket.h"
+#include "Cvecara.h"
 
 using namespace std;
 
@@ -17,12 +18,17 @@ int main() {
 	b1.dodaj(c1).dodaj(c2).dodaj(c3).dodaj(c4).dodaj(c5);
 
 	Buket b2;
-	b2.dodaj(c2);
+	b2.dodaj(c2).dodaj(c5);
 
-	cout << b1 << endl;
+	Cvecara cvecara;
 
-	if(b1 > b2) cout << 1;
+	cvecara.dodaj(b1).dodaj(b2);
+	
+	cout << cvecara << endl;
 
+	cvecara.prodaj(2);
+
+	cout << cvecara << endl;
 
 	return 0;
 }
