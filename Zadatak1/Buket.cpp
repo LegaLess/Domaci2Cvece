@@ -18,6 +18,13 @@ Buket& Buket::dodaj(Cvet& c)
 	return *this;
 }
 
+Buket::Buket(const Buket& b1)
+{
+
+
+
+}
+
 int Buket::zarada() const 
 {
 	int s = 0;

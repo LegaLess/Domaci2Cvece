@@ -9,6 +9,8 @@ public:
 
 	Buket& dodaj(Cvet&);
 
+	Buket(const Buket&);
+
 	int zarada() const;
 
 	int nabavna() const;

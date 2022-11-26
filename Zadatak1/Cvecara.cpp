@@ -6,7 +6,7 @@
 
 Cvecara& Cvecara::dodaj(Buket& b)
 {
-	if (b.procenatZar() > 0.2) {
+	if (true || b.procenatZar() > 0.2) {
 		Elem* novi = new Elem(b);
 
 		if (prvi) {

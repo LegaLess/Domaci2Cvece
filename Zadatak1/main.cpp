@@ -20,13 +20,27 @@ int main() {
 	Buket b2;
 	b2.dodaj(c2).dodaj(c5);
 
+	Buket b3;
+	b1.dodaj(c4);
+
+	Buket b4;
+	b2.dodaj(c4).dodaj(c5).dodaj(c3);
+
 	Cvecara cvecara;
 
-	cvecara.dodaj(b1).dodaj(b2);
+	cvecara.dodaj(b1);
 	
 	cout << cvecara << endl;
 
-	cvecara.prodaj(2);
+	cvecara.dodaj(b2);
+
+	cout << cvecara << endl;
+
+	cvecara.dodaj(b3);
+
+	cout << cvecara << endl;
+
+	cvecara.dodaj(b4);
 
 	cout << cvecara << endl;
 
