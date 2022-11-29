@@ -7,9 +7,13 @@ class Buket {
 
 public:
 
-	Buket& dodaj(Cvet&);
+	Buket& dodaj(const Cvet&);
+
+	Buket() : prvi(nullptr), prviJ(nullptr) {}
 
 	Buket(const Buket&);
+
+	Buket(Buket&&);
 
 	int zarada() const;
 
@@ -17,46 +21,33 @@ public:
 
 	int prodajna() const;
 
-	float procenatZar() const;
+	friend ostream& operator<<(ostream&, Buket&);
 
-	friend ostream& operator<<(ostream& it, const Buket& b) {
-		Elem* tek = b.prvi;
-
-		while (tek) {
-			if (tek->next) {
-				it << tek->cvet->get_naziv() + ",";
-			}
-			else {
-				it << tek->cvet->get_naziv() + " " << b.prodajna() << "RSD";
-			}
-			tek = tek->next;
-		}
-		return it;
-	}
-
-	friend bool operator>(Buket& b1, Buket& b2) {
-		return b1.prodajna() > b2.prodajna();
-	}
+	friend bool operator>(Buket&, Buket&);
 	
-	~Buket() {
-		Elem* tek = prvi;
-		Elem* pr = tek;
-		while (tek) {
-			pr = tek;
-			tek = tek->next;
-			delete pr;
-		}
-	}
+	~Buket();
 	
 
 private:
 
+	Buket& dodajJ(const Cvet&);
+
+	float procenatZar() const;
+
+	void kopiraj(const Buket&);
+
+	void premesti(Buket&);
+
+	void brisi();
+
 	struct Elem {
-		Cvet* cvet;
+		const Cvet cvet;
 		Elem* next = nullptr;
-		Elem(Cvet& c) : cvet(&c){}
+		Elem(const Cvet& c) : cvet(c){}
 	};
 
 	Elem* prvi;
+
+	Elem* prviJ;
 
 };

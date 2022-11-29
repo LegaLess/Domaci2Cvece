@@ -3,26 +3,65 @@
 #include "Cvet.h"
 #include "Buket.h"
 
-Buket& Buket::dodaj(Cvet& c)
+Buket& Buket::dodaj(const Cvet& c)
 {
 	Elem* novi = new Elem(c);
 
 	if (prvi) {
 		novi->next = prvi;
-		prvi = novi;
-	}
-	else {
-		prvi = novi;
 	}
 
+	prvi = novi;
 	return *this;
 }
 
-Buket::Buket(const Buket& b1)
-{
+Buket& Buket::dodajJ(const Cvet& c) {
+	Elem* novi = new Elem(c);
 
+	if (prviJ) {
+		novi->next = prviJ;
+	}
 
+	prviJ = novi;
+	return *this;
+}
 
+void Buket::brisi() {
+	Elem* tek;
+	while (tek = prvi) {
+		prvi = prvi->next;
+		delete tek;
+	}
+	prvi = nullptr;
+}
+
+void Buket::kopiraj(const Buket& b) {
+	Elem* tek = b.prvi;
+
+	while (tek) {
+		this->dodaj(tek->cvet);
+		tek = tek->next;
+	}
+}
+
+void Buket::premesti(Buket& b) {
+	this->prvi = b.prvi;
+	b.prvi = nullptr;
+}
+
+Buket::Buket(const Buket& b) {
+	kopiraj(b);
+}
+
+Buket::Buket(Buket&& b) {
+	if (this != &b) {
+		brisi();
+		premesti(b);
+	}
+}
+
+Buket::~Buket() {
+	brisi();
 }
 
 int Buket::zarada() const 
@@ -31,7 +70,7 @@ int Buket::zarada() const
 	Elem* tek = prvi;
 
 	while (tek) {
-		s += tek->cvet->zarada();
+		s += tek->cvet.zarada();
 		tek = tek->next;
 	}
 	
@@ -44,7 +83,7 @@ int Buket::nabavna() const
 	Elem* tek = prvi;
 
 	while (tek) {
-		s += tek->cvet->get_cenaN();
+		s += tek->cvet.get_cenaN();
 		tek = tek->next;
 	}
 
@@ -57,7 +96,7 @@ int Buket::prodajna() const
 	Elem* tek = prvi;
 
 	while (tek) {
-		s += tek->cvet->get_cenaP();
+		s += tek->cvet.get_cenaP();
 		tek = tek->next;
 	}
 
@@ -72,11 +111,43 @@ float Buket::procenatZar() const
 
 
 	while (tek) {
-		sP += tek->cvet->get_cenaP();
-		sN += tek->cvet->get_cenaN();
+		sP += tek->cvet.get_cenaP();
+		sN += tek->cvet.get_cenaN();
 		tek = tek->next;
 	}
 
 	return sN / sP;
 }
+
+ostream& operator<<(ostream& it, Buket& b) {
+	Buket::Elem* tek = b.prvi;
+	Buket::Elem* tekJ = b.prviJ;
+
+	while (tek) {
+		while (tekJ) {
+			if (tekJ->cvet.get_naziv() == tek->cvet.get_naziv()) break;
+			tekJ = tekJ->next;
+		}
+		if (!tekJ) {
+			b.dodajJ(tek->cvet);
+		}
+		tekJ = b.prviJ;
+		tek = tek->next;
+	}
+
+	cout << "(";
+
+	while (tekJ) {
+		if (tekJ->next) {
+			it << tekJ->cvet.get_naziv() + ",";
+		}
+		else {
+			it << tekJ->cvet.get_naziv() + ") " << b.prodajna() << "RSD";
+		}
+		tekJ = tekJ->next;
+	}
+	return it;
+}
+
+bool operator>(const Buket& b1, const Buket& b2) { return b1.prodajna() > b2.prodajna(); }
 

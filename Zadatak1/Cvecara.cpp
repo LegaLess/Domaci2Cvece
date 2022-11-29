@@ -4,22 +4,60 @@
 #include "Buket.h"
 #include "Cvecara.h"
 
+void Cvecara::kopiraj(const Cvecara& c) {
+	Elem* tek = c.prvi;
+	while (tek) {
+		this->dodaj(tek->buket);
+		tek = tek->next;
+	}
+}
+
+void Cvecara::premesti(Cvecara& c) {
+	this->prvi = c.prvi;
+	c.prvi = nullptr;
+}
+
+void Cvecara::brisi() {
+	Elem* tek;
+	while (tek = prvi) {
+		prvi = prvi->next;
+		delete tek;
+	}
+}
+
+Cvecara::Cvecara(const Cvecara& c) {
+	kopiraj(c);
+}
+
+Cvecara::Cvecara(Cvecara&& c) {
+	premesti(c);
+}
+
+Cvecara::~Cvecara() {
+	brisi();
+}
+
 Cvecara& Cvecara::dodaj(Buket& b)
 {
-	if (true || b.procenatZar() > 0.2) {
-		Elem* novi = new Elem(b);
-
-		if (prvi) {
+	Elem* novi = new Elem(b);
+	if (b.prodajna() > b.nabavna() * 1.2) {
+		if (!prvi || prvi->buket.prodajna() >= novi->buket.prodajna()) {
 			novi->next = prvi;
 			prvi = novi;
+			kolicina++;
 		}
 		else {
-			prvi = novi;
+			Elem* tek = prvi;
+
+			while (tek->next && tek->next->buket.prodajna() < novi->buket.prodajna()) {
+				tek = tek->next;
+			}
+			novi->next = tek->next;
+			tek->next = novi;
+			kolicina++;
 		}
-
-		zarada -= novi->buket.nabavna();
-
 	}
+
 	return *this;
 }
 
@@ -28,6 +66,10 @@ Cvecara& Cvecara::prodaj(int rb)
 	int i = 1;
 	Elem* tek = prvi;
 	Elem* pret = tek;
+
+	if (rb > kolicina) {
+		return *this;
+	}
 
 	while (i != rb) {
 		pret = tek;

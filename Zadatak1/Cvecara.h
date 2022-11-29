@@ -8,23 +8,27 @@ class Cvecara {
 
 public:
 
+	Cvecara() : prvi(nullptr) {}
+
 	Cvecara& dodaj(Buket&);
 
 	Cvecara& prodaj(int);
 
+	Cvecara(const Cvecara&);
+
+	Cvecara(Cvecara&&);
+
 	friend ostream& operator<<(ostream&, Cvecara&);
 
-	~Cvecara() {
-		Elem* tek = prvi;
-		Elem* pr = tek;
-		while (tek) {
-			pr = tek;
-			tek = tek->next;
-			delete pr;
-		}
-	}
+	~Cvecara();
 
 private:
+
+	void kopiraj(const Cvecara&);
+
+	void premesti(Cvecara&);
+
+	void brisi();
 
 	struct Elem {
 		Buket& buket;
@@ -33,6 +37,8 @@ private:
 	};
 
 	int zarada = 1000;
+
+	int kolicina = 0;
 
 	Elem* prvi;
 
