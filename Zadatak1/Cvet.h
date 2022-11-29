@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _CVET_H_
+#define _CVET_H_
 
 #include <iostream>
 #include <string>
@@ -28,3 +29,4 @@ private:
 };
 
 
+#endif

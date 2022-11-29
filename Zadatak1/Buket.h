@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _BUKET_H_
+#define _BUKET_H_
+
 #include <iostream>
 #include <string>
 #include "Cvet.h"
@@ -51,3 +53,5 @@ private:
 	Elem* prviJ;
 
 };
+
+#endif

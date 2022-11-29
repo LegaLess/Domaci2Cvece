@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _CVECARA_H_
+#define _CVECARA_H_
+
 #include <iostream>
 #include <string>
 #include "Cvet.h"
@@ -43,3 +45,5 @@ private:
 	Elem* prvi;
 
 };
+
+#endif
