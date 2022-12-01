@@ -7,7 +7,7 @@
 void Cvecara::kopiraj(const Cvecara& c) {
 	Elem* tek = c.prvi;
 	while (tek) {
-		this->dodaj(tek->buket);
+		this->dodaj(*tek->buket);
 		tek = tek->next;
 	}
 }
@@ -41,7 +41,7 @@ Cvecara& Cvecara::dodaj(Buket& b)
 {
 	Elem* novi = new Elem(b);
 	if (b.prodajna() > b.nabavna() * 1.2) {
-		if (!prvi || prvi->buket.prodajna() >= novi->buket.prodajna()) {
+		if (!prvi || prvi->buket->prodajna() >= novi->buket->prodajna()) {
 			novi->next = prvi;
 			prvi = novi;
 			kolicina++;
@@ -49,7 +49,7 @@ Cvecara& Cvecara::dodaj(Buket& b)
 		else {
 			Elem* tek = prvi;
 
-			while (tek->next && tek->next->buket.prodajna() < novi->buket.prodajna()) {
+			while (tek->next && tek->next->buket->prodajna() < novi->buket->prodajna()) {
 				tek = tek->next;
 			}
 			novi->next = tek->next;
@@ -77,7 +77,7 @@ Cvecara& Cvecara::prodaj(int rb)
 		i++;
 	}
 
-	zarada += tek->buket.prodajna();
+	zarada += tek->buket->prodajna();
 
 	pret->next = tek->next;
 
@@ -97,7 +97,7 @@ ostream& operator<<(ostream& it, Cvecara& c)
 	Cvecara::Elem* tek = c.prvi;
 
 	while (tek) {
-		it << tek->buket << endl;
+		it << *tek->buket << endl;
 		tek = tek->next;
 	}
 

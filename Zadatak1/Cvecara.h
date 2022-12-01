@@ -33,9 +33,9 @@ private:
 	void brisi();
 
 	struct Elem {
-		Buket& buket;
+		Buket* buket;
 		Elem* next = nullptr;
-		Elem(Buket& b) : buket(b) {}
+		Elem(Buket& b) : buket(&b) {}
 	};
 
 	int zarada = 1000;

@@ -9,7 +9,7 @@ class Buket {
 
 public:
 
-	Buket& dodaj(const Cvet&);
+	Buket& dodaj(Cvet&);
 
 	Buket() : prvi(nullptr), prviJ(nullptr) {}
 
@@ -32,7 +32,7 @@ public:
 
 private:
 
-	Buket& dodajJ(const Cvet&);
+	Buket& dodajJ(Cvet&);
 
 	float procenatZar() const;
 
@@ -43,9 +43,9 @@ private:
 	void brisi();
 
 	struct Elem {
-		const Cvet cvet;
+		Cvet* cvet;
 		Elem* next = nullptr;
-		Elem(const Cvet& c) : cvet(c){}
+		Elem(Cvet& c) : cvet(&c){}
 	};
 
 	Elem* prvi;

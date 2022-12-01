@@ -3,7 +3,7 @@
 #include "Cvet.h"
 #include "Buket.h"
 
-Buket& Buket::dodaj(const Cvet& c)
+Buket& Buket::dodaj(Cvet& c)
 {
 	Elem* novi = new Elem(c);
 
@@ -15,7 +15,7 @@ Buket& Buket::dodaj(const Cvet& c)
 	return *this;
 }
 
-Buket& Buket::dodajJ(const Cvet& c) {
+Buket& Buket::dodajJ(Cvet& c) {
 	Elem* novi = new Elem(c);
 
 	if (prviJ) {
@@ -39,7 +39,7 @@ void Buket::kopiraj(const Buket& b) {
 	Elem* tek = b.prvi;
 
 	while (tek) {
-		this->dodaj(tek->cvet);
+		this->dodaj(*tek->cvet);
 		tek = tek->next;
 	}
 }
@@ -70,7 +70,7 @@ int Buket::zarada() const
 	Elem* tek = prvi;
 
 	while (tek) {
-		s += tek->cvet.zarada();
+		s += tek->cvet->zarada();
 		tek = tek->next;
 	}
 	
@@ -83,7 +83,7 @@ int Buket::nabavna() const
 	Elem* tek = prvi;
 
 	while (tek) {
-		s += tek->cvet.get_cenaN();
+		s += tek->cvet->get_cenaN();
 		tek = tek->next;
 	}
 
@@ -96,7 +96,7 @@ int Buket::prodajna() const
 	Elem* tek = prvi;
 
 	while (tek) {
-		s += tek->cvet.get_cenaP();
+		s += tek->cvet->get_cenaP();
 		tek = tek->next;
 	}
 
@@ -111,8 +111,8 @@ float Buket::procenatZar() const
 
 
 	while (tek) {
-		sP += tek->cvet.get_cenaP();
-		sN += tek->cvet.get_cenaN();
+		sP += tek->cvet->get_cenaP();
+		sN += tek->cvet->get_cenaN();
 		tek = tek->next;
 	}
 
@@ -125,11 +125,11 @@ ostream& operator<<(ostream& it, Buket& b) {
 
 	while (tek) {
 		while (tekJ) {
-			if (tekJ->cvet.get_naziv() == tek->cvet.get_naziv()) break;
+			if (tekJ->cvet->get_naziv() == tek->cvet->get_naziv()) break;
 			tekJ = tekJ->next;
 		}
 		if (!tekJ) {
-			b.dodajJ(tek->cvet);
+			b.dodajJ(*tek->cvet);
 		}
 		tekJ = b.prviJ;
 		tek = tek->next;
@@ -139,10 +139,10 @@ ostream& operator<<(ostream& it, Buket& b) {
 
 	while (tekJ) {
 		if (tekJ->next) {
-			it << tekJ->cvet.get_naziv() + ",";
+			it << tekJ->cvet->get_naziv() + ",";
 		}
 		else {
-			it << tekJ->cvet.get_naziv() + ") " << b.prodajna() << "RSD";
+			it << tekJ->cvet->get_naziv() + ") " << b.prodajna() << "RSD";
 		}
 		tekJ = tekJ->next;
 	}
